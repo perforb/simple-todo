@@ -40,6 +40,6 @@ public interface TodoMapper {
   @Update("update todo set done = 1 where id = #{id}")
   void finish(int id);
 
-  @Delete("deleteById from todo where id = #{id}")
+  @Delete("delete from todo where id = #{id}")
   void deleteById(int id);
 }
