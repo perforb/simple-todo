@@ -50,7 +50,7 @@ public class TodoController {
 
   @DeleteMapping(value = "/todos/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void deleteTodo(@PathVariable("id") String identifier) {
+  public void delete(@PathVariable("id") String identifier) {
     int id = Integer.parseInt(identifier);
     service.delete(id);
   }
