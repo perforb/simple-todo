@@ -6,6 +6,8 @@ import com.example.todo.domain.TodoRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Service
@@ -32,6 +34,8 @@ public class TodoService {
 
   @Transactional
   public Todo register(Todo todo) {
+    ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Asia/Tokyo"));
+    todo.setCreatedAt(now.toLocalDateTime());
     repository.register(todo);
     return todo;
   }

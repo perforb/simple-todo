@@ -1,19 +1,23 @@
 package com.example.todo.domain;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 public class Todo {
 
-  private int id;
+  private Integer id;
+  @NotBlank(message = "must not be blank")
+  @Size(max = 30, message = "must be lower or equal to 30")
   private String title;
   private boolean done;
   private LocalDateTime createdAt;
 
-  public int getId() {
+  public Integer getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(Integer id) {
     this.id = id;
   }
 
