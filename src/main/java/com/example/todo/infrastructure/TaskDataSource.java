@@ -1,31 +1,31 @@
 package com.example.todo.infrastructure;
 
-import com.example.todo.domain.Todo;
-import com.example.todo.domain.TodoRepository;
+import com.example.todo.domain.Task;
+import com.example.todo.domain.TaskRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class TodoDataSource implements TodoRepository {
+public class TaskDataSource implements TaskRepository {
 
-  private final TodoMapper mapper;
+  private final TaskMapper mapper;
 
-  public TodoDataSource(TodoMapper mapper) {
+  public TaskDataSource(TaskMapper mapper) {
     this.mapper = mapper;
   }
 
-  public Optional<Todo> findById(int id) {
+  public Optional<Task> findById(int id) {
     return Optional.ofNullable(mapper.findById(id));
   }
 
-  public List<Todo> list() {
+  public List<Task> list() {
     return mapper.findAll();
   }
 
-  public void register(Todo todo) {
-    mapper.insert(todo);
+  public void register(Task task) {
+    mapper.insert(task);
   }
 
   public void finish(int id) {

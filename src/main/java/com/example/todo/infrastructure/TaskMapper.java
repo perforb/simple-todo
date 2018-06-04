@@ -1,6 +1,6 @@
 package com.example.todo.infrastructure;
 
-import com.example.todo.domain.Todo;
+import com.example.todo.domain.Task;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -13,7 +13,7 @@ import org.apache.ibatis.annotations.Update;
 import java.util.List;
 
 @Mapper
-public interface TodoMapper {
+public interface TaskMapper {
 
   @Results({
     @Result(id = true, column = "id", property = "id"),
@@ -21,8 +21,8 @@ public interface TodoMapper {
     @Result(column = "done", property = "done"),
     @Result(column = "created_at", property = "createdAt")
   })
-  @Select("select id, title, done, created_at from todo where id = #{id}")
-  Todo findById(int id);
+  @Select("select id, title, done, created_at from task where id = #{id}")
+  Task findById(int id);
 
   @Results({
     @Result(id = true, column = "id", property = "id"),
@@ -30,16 +30,16 @@ public interface TodoMapper {
     @Result(column = "done", property = "done"),
     @Result(column = "created_at", property = "createdAt")
   })
-  @Select("select id, title, done, created_at from todo")
-  List<Todo> findAll();
+  @Select("select id, title, done, created_at from task")
+  List<Task> findAll();
 
   @Options(useGeneratedKeys = true)
-  @Insert("insert into todo (title, done, created_at) values (#{title}, #{done}, #{createdAt})")
-  void insert(Todo todo);
+  @Insert("insert into task (title, done, created_at) values (#{title}, #{done}, #{createdAt})")
+  void insert(Task todo);
 
-  @Update("update todo set done = 1 where id = #{id}")
+  @Update("update task set done = 1 where id = #{id}")
   void finish(int id);
 
-  @Delete("delete from todo where id = #{id}")
+  @Delete("delete from task where id = #{id}")
   void deleteById(int id);
 }

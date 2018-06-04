@@ -6,10 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 
 @SpringBootApplication
-public class TodoApplication {
+public class TaskApplication {
 
   public static void main(String[] args) {
-    SpringApplicationBuilder builder = new SpringApplicationBuilder(TodoApplication.class);
+    SpringApplicationBuilder builder = new SpringApplicationBuilder(TaskApplication.class);
     builder
       .bannerMode(Mode.CONSOLE)
       .web(WebApplicationType.SERVLET)

@@ -3,13 +3,13 @@ package com.example.todo.domain;
 import java.util.List;
 import java.util.Optional;
 
-public interface TodoRepository {
+public interface TaskRepository {
 
-  Optional<Todo> findById(int id);
+  Optional<Task> findById(int id);
 
-  List<Todo> list();
+  List<Task> list();
 
-  void register(Todo todo);
+  void register(Task task);
 
   void finish(int id);
 

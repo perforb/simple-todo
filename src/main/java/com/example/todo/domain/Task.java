@@ -4,7 +4,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
-public class Todo {
+public class Task {
 
   private Integer id;
   @NotBlank(message = "must not be blank")

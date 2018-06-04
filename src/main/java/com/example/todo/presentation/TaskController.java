@@ -1,7 +1,7 @@
 package com.example.todo.presentation;
 
-import com.example.todo.application.TodoService;
-import com.example.todo.domain.Todo;
+import com.example.todo.application.TaskService;
+import com.example.todo.domain.Task;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,41 +16,41 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public class TodoController {
+public class TaskController {
 
-  private final TodoService service;
+  private final TaskService service;
 
-  public TodoController(TodoService service) {
+  public TaskController(TaskService service) {
     this.service = service;
   }
 
-  @GetMapping(value = "/todos")
+  @GetMapping(value = "/tasks")
   @ResponseStatus(HttpStatus.OK)
-  public List<Todo> list() {
+  public List<Task> list() {
     return service.list();
   }
 
-  @GetMapping(value = "/todos/{id}")
+  @GetMapping(value = "/tasks/{id}")
   @ResponseStatus(HttpStatus.OK)
-  public Todo find(@PathVariable("id") String identifier) {
+  public Task find(@PathVariable("id") String identifier) {
     int id = Integer.parseInt(identifier);
     return service.findById(id);
   }
 
-  @PostMapping(value = "/todos")
+  @PostMapping(value = "/tasks")
   @ResponseStatus(HttpStatus.CREATED)
-  public Todo register(@RequestBody @Validated Todo todo) {
+  public Task register(@RequestBody @Validated Task todo) {
     return service.register(todo);
   }
 
-  @PutMapping(value = "/todos/{id}")
+  @PutMapping(value = "/tasks/{id}")
   @ResponseStatus(HttpStatus.OK)
   public void finish(@PathVariable("id") String identifier) {
     int id = Integer.parseInt(identifier);
     service.finish(id);
   }
 
-  @DeleteMapping(value = "/todos/{id}")
+  @DeleteMapping(value = "/tasks/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void delete(@PathVariable("id") String identifier) {
     int id = Integer.parseInt(identifier);

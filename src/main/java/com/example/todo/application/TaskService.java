@@ -1,8 +1,8 @@
 package com.example.todo.application;
 
 import com.example.todo.domain.NotFoundException;
-import com.example.todo.domain.Todo;
-import com.example.todo.domain.TodoRepository;
+import com.example.todo.domain.Task;
+import com.example.todo.domain.TaskRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,33 +11,33 @@ import java.time.ZonedDateTime;
 import java.util.List;
 
 @Service
-public class TodoService {
+public class TaskService {
 
-  private final TodoRepository repository;
+  private final TaskRepository repository;
 
-  public TodoService(TodoRepository repository) {
+  public TaskService(TaskRepository repository) {
     this.repository = repository;
   }
 
-  public List<Todo> list() {
+  public List<Task> list() {
     return repository.list();
   }
 
-  public Todo findById(int id) {
+  public Task findById(int id) {
     return repository.findById(id).orElseThrow(() ->
       new NotFoundException(String.format(
-        "The record with the given id [%s] is not found.",
+        "The task with the given id [%s] was not found.",
         id
       ))
     );
   }
 
   @Transactional
-  public Todo register(Todo todo) {
+  public Task register(Task task) {
     ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Asia/Tokyo"));
-    todo.setCreatedAt(now.toLocalDateTime());
-    repository.register(todo);
-    return todo;
+    task.setCreatedAt(now.toLocalDateTime());
+    repository.register(task);
+    return task;
   }
 
   @Transactional
