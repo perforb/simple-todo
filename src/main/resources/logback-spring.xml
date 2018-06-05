@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+  <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+  <property name="FILE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %X{REQUEST_ID:-undefined} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
+
+  <springProfile name="local">
+    <root level="INFO">
+      <appender-ref ref="CONSOLE" />
+    </root>
+  </springProfile>
+
+  <springProfile name="develop">
+    <appender name="DAILY_ROLLING_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <encoder>
+        <pattern>${FILE_LOG_PATTERN}</pattern>
+      </encoder>
+      <file>/var/log/todo/todo-develop.log</file>
+      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>/var/log/todo/todo-develop.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+        <maxHistory>7</maxHistory>
+      </rollingPolicy>
+    </appender>
+    <root level="INFO">
+      <appender-ref ref="DAILY_ROLLING_FILE" />
+    </root>
+  </springProfile>
+
+  <springProfile name="staging">
+    <appender name="DAILY_ROLLING_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <encoder>
+        <pattern>${FILE_LOG_PATTERN}</pattern>
+      </encoder>
+      <file>/var/log/todo/todo-staging.log</file>
+      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>/var/log/todo/todo-staging.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+        <maxHistory>7</maxHistory>
+      </rollingPolicy>
+    </appender>
+    <root level="INFO">
+      <appender-ref ref="DAILY_ROLLING_FILE" />
+    </root>
+  </springProfile>
+
+  <springProfile name="production">
+    <appender name="DAILY_ROLLING_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <encoder>
+        <pattern>${FILE_LOG_PATTERN}</pattern>
+      </encoder>
+      <file>/var/log/todo/todo-production.log</file>
+      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>/var/log/todo/todo-production.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+        <maxHistory>7</maxHistory>
+      </rollingPolicy>
+    </appender>
+    <root level="INFO">
+      <appender-ref ref="DAILY_ROLLING_FILE" />
+    </root>
+  </springProfile>
+
+</configuration>
