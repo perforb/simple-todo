@@ -1,7 +1,7 @@
-package com.example.todo.infrastructure;
+package com.example.todo.infrastructure.task;
 
-import com.example.todo.domain.Task;
-import com.example.todo.domain.TaskRepository;
+import com.example.todo.domain.task.Task;
+import com.example.todo.domain.task.TaskRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

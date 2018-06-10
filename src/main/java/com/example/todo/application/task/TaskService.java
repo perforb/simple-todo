@@ -1,8 +1,8 @@
-package com.example.todo.application;
+package com.example.todo.application.task;
 
 import com.example.todo.domain.NotFoundException;
-import com.example.todo.domain.Task;
-import com.example.todo.domain.TaskRepository;
+import com.example.todo.domain.task.Task;
+import com.example.todo.domain.task.TaskRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

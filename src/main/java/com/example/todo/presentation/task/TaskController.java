@@ -1,7 +1,7 @@
-package com.example.todo.presentation;
+package com.example.todo.presentation.task;
 
-import com.example.todo.application.TaskService;
-import com.example.todo.domain.Task;
+import com.example.todo.application.task.TaskService;
+import com.example.todo.domain.task.Task;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;

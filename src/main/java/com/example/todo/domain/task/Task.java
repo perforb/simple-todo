@@ -1,4 +1,4 @@
-package com.example.todo.domain;
+package com.example.todo.domain.task;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;

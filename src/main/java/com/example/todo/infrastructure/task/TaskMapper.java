@@ -1,6 +1,6 @@
-package com.example.todo.infrastructure;
+package com.example.todo.infrastructure.task;
 
-import com.example.todo.domain.Task;
+import com.example.todo.domain.task.Task;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;

@@ -1,4 +1,4 @@
-package com.example.todo.domain;
+package com.example.todo.domain.task;
 
 import java.util.List;
 import java.util.Optional;
