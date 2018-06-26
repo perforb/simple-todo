@@ -13,6 +13,21 @@ public class Task {
   private boolean done;
   private LocalDateTime createdAt;
 
+  public Task() {
+  }
+
+  public Task(
+    Integer id,
+    String title,
+    boolean done,
+    LocalDateTime createdAt
+  ) {
+    this.id = id;
+    this.title = title;
+    this.done = done;
+    this.createdAt = createdAt;
+  }
+
   public Integer getId() {
     return id;
   }
