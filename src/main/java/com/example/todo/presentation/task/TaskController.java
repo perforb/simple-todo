@@ -33,7 +33,7 @@ public class TaskController {
   @GetMapping(value = "/tasks/{id}")
   @ResponseStatus(HttpStatus.OK)
   public Task find(@PathVariable("id") String identifier) {
-    int id = Integer.parseInt(identifier);
+    Integer id = Integer.valueOf(identifier);
     return service.findById(id);
   }
 
@@ -46,14 +46,14 @@ public class TaskController {
   @PutMapping(value = "/tasks/{id}")
   @ResponseStatus(HttpStatus.OK)
   public void finish(@PathVariable("id") String identifier) {
-    int id = Integer.parseInt(identifier);
+    Integer id = Integer.valueOf(identifier);
     service.finish(id);
   }
 
   @DeleteMapping(value = "/tasks/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void delete(@PathVariable("id") String identifier) {
-    int id = Integer.parseInt(identifier);
+    Integer id = Integer.valueOf(identifier);
     service.delete(id);
   }
 }

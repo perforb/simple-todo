@@ -16,7 +16,7 @@ public class TaskDataSource implements TaskRepository {
     this.mapper = mapper;
   }
 
-  public Optional<Task> findById(int id) {
+  public Optional<Task> findById(Integer id) {
     return Optional.ofNullable(mapper.findById(id));
   }
 
@@ -28,11 +28,11 @@ public class TaskDataSource implements TaskRepository {
     mapper.insert(task);
   }
 
-  public void finish(int id) {
+  public void finish(Integer id) {
     mapper.finish(id);
   }
 
-  public void delete(int id) {
+  public void delete(Integer id) {
     mapper.deleteById(id);
   }
 }

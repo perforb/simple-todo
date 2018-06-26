@@ -22,7 +22,7 @@ public interface TaskMapper {
     @Result(column = "created_at", property = "createdAt")
   })
   @Select("select id, title, done, created_at from task where id = #{id}")
-  Task findById(int id);
+  Task findById(Integer id);
 
   @Results({
     @Result(id = true, column = "id", property = "id"),
@@ -38,8 +38,8 @@ public interface TaskMapper {
   void insert(Task todo);
 
   @Update("update task set done = 1 where id = #{id}")
-  void finish(int id);
+  void finish(Integer id);
 
   @Delete("delete from task where id = #{id}")
-  void deleteById(int id);
+  void deleteById(Integer id);
 }

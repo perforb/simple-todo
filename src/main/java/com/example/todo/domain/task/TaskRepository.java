@@ -5,13 +5,13 @@ import java.util.Optional;
 
 public interface TaskRepository {
 
-  Optional<Task> findById(int id);
+  Optional<Task> findById(Integer id);
 
   List<Task> list();
 
   void register(Task task);
 
-  void finish(int id);
+  void finish(Integer id);
 
-  void delete(int id);
+  void delete(Integer id);
 }

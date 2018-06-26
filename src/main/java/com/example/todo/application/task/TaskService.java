@@ -23,7 +23,7 @@ public class TaskService {
     return repository.list();
   }
 
-  public Task findById(int id) {
+  public Task findById(Integer id) {
     return repository.findById(id).orElseThrow(() ->
       new NotFoundException(String.format(
         "The task with the given id [%s] was not found.",
@@ -41,12 +41,12 @@ public class TaskService {
   }
 
   @Transactional
-  public void finish(int id) {
+  public void finish(Integer id) {
     repository.finish(id);
   }
 
   @Transactional
-  public void delete(int id) {
+  public void delete(Integer id) {
     repository.delete(id);
   }
 }
