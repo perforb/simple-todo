@@ -3,7 +3,6 @@ package com.example.todo.application.task;
 import com.example.todo.domain.NotFoundException;
 import com.example.todo.domain.task.Task;
 import com.example.todo.domain.task.TaskRepository;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.platform.runner.JUnitPlatform;
@@ -22,6 +21,8 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
@@ -59,7 +60,7 @@ class TaskServiceTest {
     );
 
     Optional<Task> task = taskRepository.findById(1);
-    Assertions.assertTrue(task.isPresent());
+    assertTrue(task.isPresent());
     task.ifPresent(t -> assertAll("equal properties",
       () -> assertEquals(Integer.valueOf(1), t.getId()),
       () -> assertEquals("task1", t.getTitle()),
@@ -77,7 +78,7 @@ class TaskServiceTest {
       ))
     );
 
-    Assertions.assertThrows(
+    assertThrows(
       NotFoundException.class,
       () -> underTest.findById(99)
     );
