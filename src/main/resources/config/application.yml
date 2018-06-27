@@ -5,3 +5,6 @@
 spring:
   profiles:
     active: local
+
+app:
+  time-zone: Asia/Tokyo
