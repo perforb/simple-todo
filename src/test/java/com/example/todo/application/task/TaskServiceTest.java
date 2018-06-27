@@ -12,8 +12,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -38,12 +41,20 @@ class TaskServiceTest {
 
   @Test
   void findById() {
+    ZonedDateTime zonedDateTime = ZonedDateTime.of(
+      LocalDate.of(2018, 6, 27),
+      LocalTime.NOON,
+      ZoneId.of("Asia/Tokyo")
+    );
+
+    LocalDateTime createdAt = zonedDateTime.toLocalDateTime();
+
     when(taskRepository.findById(anyInt())).thenReturn(
       Optional.of(new Task(
         1,
         "task1",
         false,
-        LocalDateTime.now(ZoneId.of("Asia/Tokyo"))
+        createdAt
       ))
     );
 
@@ -52,7 +63,8 @@ class TaskServiceTest {
     task.ifPresent(t -> assertAll("equal properties",
       () -> assertEquals(Integer.valueOf(1), t.getId()),
       () -> assertEquals("task1", t.getTitle()),
-      () -> assertFalse(t.isDone())
+      () -> assertFalse(t.isDone()),
+      () -> assertEquals(createdAt, t.getCreatedAt())
     ));
   }
 
