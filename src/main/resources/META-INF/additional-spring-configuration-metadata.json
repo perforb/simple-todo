@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "app.time-zone",
+      "type": "java.lang.String",
+      "description": "Application time-zone."
+    }
+  ]
+}
