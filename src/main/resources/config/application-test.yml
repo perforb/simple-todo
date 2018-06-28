@@ -1,0 +1,26 @@
+## The location of reference is following:
+## https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#common-application-properties
+## if you want to replace the value on starting the process, pass by command line or OS environment.
+
+server:
+  port: 9000
+
+spring:
+  profiles:
+    include:
+      - logging-local
+  datasource:
+    url: jdbc:h2:mem:test;MODE=MySQL;DATABASE_TO_UPPER=false;
+    username: sa
+    password:
+    platform: h2
+    sql-script-encoding: UTF-8
+    driver-class-name: org.h2.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 0
+      idle-timeout: 30000
+      max-lifetime: 1800000
+      read-only: false
+      connection-test-query: "select 1"
