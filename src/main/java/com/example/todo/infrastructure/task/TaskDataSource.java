@@ -1,5 +1,6 @@
 package com.example.todo.infrastructure.task;
 
+import com.example.todo.domain.NotFoundException;
 import com.example.todo.domain.task.Task;
 import com.example.todo.domain.task.TaskRepository;
 import org.springframework.stereotype.Repository;
@@ -16,8 +17,13 @@ public class TaskDataSource implements TaskRepository {
     this.mapper = mapper;
   }
 
-  public Optional<Task> findById(Integer id) {
-    return Optional.ofNullable(mapper.findById(id));
+  public Task findById(Integer id) {
+    return Optional.ofNullable(mapper.findById(id)).orElseThrow(() ->
+      new NotFoundException(String.format(
+        "The task with the given id [%s] was not found.",
+        id
+      ))
+    );
   }
 
   public List<Task> list() {

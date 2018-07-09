@@ -16,13 +16,11 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.Optional;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
@@ -51,22 +49,21 @@ class TaskServiceTest {
     LocalDateTime createdAt = zonedDateTime.toLocalDateTime();
 
     when(taskRepository.findById(anyInt())).thenReturn(
-      Optional.of(new Task(
+      new Task(
         1,
         "task1",
         false,
         createdAt
-      ))
+      )
     );
 
-    Optional<Task> task = taskRepository.findById(1);
-    assertTrue(task.isPresent());
-    task.ifPresent(t -> assertAll("equal properties",
-      () -> assertEquals(Integer.valueOf(1), t.getId()),
-      () -> assertEquals("task1", t.getTitle()),
-      () -> assertFalse(t.isDone()),
-      () -> assertEquals(createdAt, t.getCreatedAt())
-    ));
+    Task task = taskRepository.findById(1);
+    assertAll("equal properties",
+      () -> assertEquals(Integer.valueOf(1), task.getId()),
+      () -> assertEquals("task1", task.getTitle()),
+      () -> assertFalse(task.isDone()),
+      () -> assertEquals(createdAt, task.getCreatedAt())
+    );
   }
 
   @Test

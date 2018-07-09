@@ -1,11 +1,10 @@
 package com.example.todo.domain.task;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface TaskRepository {
 
-  Optional<Task> findById(Integer id);
+  Task findById(Integer id);
 
   List<Task> list();
 

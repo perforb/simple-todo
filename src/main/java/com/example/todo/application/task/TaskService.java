@@ -1,6 +1,5 @@
 package com.example.todo.application.task;
 
-import com.example.todo.domain.NotFoundException;
 import com.example.todo.domain.task.Task;
 import com.example.todo.domain.task.TaskRepository;
 import org.springframework.stereotype.Service;
@@ -24,12 +23,7 @@ public class TaskService {
   }
 
   public Task findById(Integer id) {
-    return repository.findById(id).orElseThrow(() ->
-      new NotFoundException(String.format(
-        "The task with the given id [%s] was not found.",
-        id
-      ))
-    );
+    return repository.findById(id);
   }
 
   @Transactional
