@@ -2,7 +2,7 @@ package com.example.todo.domain.task;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 public class Task {
 
@@ -11,7 +11,7 @@ public class Task {
   @Size(max = 30, message = "must be lower or equal to 30")
   private String title;
   private boolean done;
-  private LocalDateTime createdAt;
+  private Instant createdAt;
 
   public Task() {
   }
@@ -20,7 +20,7 @@ public class Task {
     Integer id,
     String title,
     boolean done,
-    LocalDateTime createdAt
+    Instant createdAt
   ) {
     this.id = id;
     this.title = title;
@@ -52,11 +52,11 @@ public class Task {
     this.done = done;
   }
 
-  public LocalDateTime getCreatedAt() {
+  public Instant getCreatedAt() {
     return createdAt;
   }
 
-  public void setCreatedAt(LocalDateTime createdAt) {
+  public void setCreatedAt(Instant createdAt) {
     this.createdAt = createdAt;
   }
 }

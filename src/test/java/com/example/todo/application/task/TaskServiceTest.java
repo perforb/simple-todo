@@ -11,8 +11,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -40,13 +40,13 @@ class TaskServiceTest {
 
   @Test
   void findById() {
-    ZonedDateTime zonedDateTime = ZonedDateTime.of(
+    ZonedDateTime fixedDateTime = ZonedDateTime.of(
       LocalDate.of(2018, 6, 27),
       LocalTime.NOON,
       ZoneId.of("Asia/Tokyo")
     );
 
-    LocalDateTime createdAt = zonedDateTime.toLocalDateTime();
+    Instant createdAt = fixedDateTime.toInstant();
 
     when(taskRepository.findById(anyInt())).thenReturn(
       new Task(

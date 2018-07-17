@@ -2,11 +2,11 @@ package com.example.todo.application.task;
 
 import com.example.todo.domain.task.Task;
 import com.example.todo.domain.task.TaskRepository;
+import com.example.todo.library.datetime.DateTimeProvider;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -28,8 +28,8 @@ public class TaskService {
 
   @Transactional
   public Task register(Task task) {
-    ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Asia/Tokyo"));
-    task.setCreatedAt(now.toLocalDateTime());
+    Instant instant = DateTimeProvider.instant();
+    task.setCreatedAt(instant);
     repository.register(task);
     return task;
   }
