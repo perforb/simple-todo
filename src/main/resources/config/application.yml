@@ -6,5 +6,8 @@ spring:
   profiles:
     active: local
 
+logging:
+  path: /var/log
+
 app:
   time-zone: Asia/Tokyo
