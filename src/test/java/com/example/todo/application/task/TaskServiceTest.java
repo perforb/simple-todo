@@ -3,6 +3,7 @@ package com.example.todo.application.task;
 import com.example.todo.domain.NotFoundException;
 import com.example.todo.domain.task.Task;
 import com.example.todo.domain.task.TaskRepository;
+import com.example.todo.library.datetime.DateTimeProvider;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.platform.runner.JUnitPlatform;
@@ -29,6 +30,9 @@ import static org.mockito.Mockito.when;
 class TaskServiceTest {
 
   @Mock
+  private DateTimeProvider provider;
+
+  @Mock
   private TaskRepository taskRepository;
 
   @InjectMocks
@@ -43,7 +47,7 @@ class TaskServiceTest {
     ZonedDateTime fixedDateTime = ZonedDateTime.of(
       LocalDate.of(2018, 6, 27),
       LocalTime.NOON,
-      ZoneId.of("Asia/Tokyo")
+      ZoneId.of("UTC")
     );
 
     Instant createdAt = fixedDateTime.toInstant();
@@ -58,7 +62,8 @@ class TaskServiceTest {
     );
 
     Task task = taskRepository.findById(1);
-    assertAll("equal properties",
+
+    assertAll("test equal properties",
       () -> assertEquals(Integer.valueOf(1), task.getId()),
       () -> assertEquals("task1", task.getTitle()),
       () -> assertFalse(task.isDone()),
@@ -83,6 +88,27 @@ class TaskServiceTest {
 
   @Test
   void register() {
+    ZonedDateTime fixedDateTime = ZonedDateTime.of(
+      LocalDate.of(2018, 6, 27),
+      LocalTime.NOON,
+      ZoneId.of("UTC")
+    );
+
+    when(provider.instant()).thenReturn(fixedDateTime.toInstant());
+
+    Task newTask = underTest.register(new Task(
+      1,
+      "task1",
+      false,
+      null
+    ));
+
+    assertAll("test equal properties",
+      () -> assertEquals(Integer.valueOf(1), newTask.getId()),
+      () -> assertEquals("task1", newTask.getTitle()),
+      () -> assertFalse(newTask.isDone()),
+      () -> assertEquals(fixedDateTime.toInstant(), newTask.getCreatedAt())
+    );
   }
 
   @Test
