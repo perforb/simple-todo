@@ -12,9 +12,11 @@ import java.util.List;
 @Service
 public class TaskService {
 
+  private final DateTimeProvider provider;
   private final TaskRepository repository;
 
-  public TaskService(TaskRepository repository) {
+  public TaskService(DateTimeProvider provider, TaskRepository repository) {
+    this.provider = provider;
     this.repository = repository;
   }
 
@@ -28,7 +30,7 @@ public class TaskService {
 
   @Transactional
   public Task register(Task task) {
-    Instant instant = DateTimeProvider.instant();
+    Instant instant = provider.instant();
     task.setCreatedAt(instant);
     repository.register(task);
     return task;

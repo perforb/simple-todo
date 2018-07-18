@@ -4,26 +4,26 @@ import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.Objects;
 
 public class DateTimeProvider {
 
-  private static final ZoneId JST = ZoneId.of("Asia/Tokyo");
+  private final Clock clock;
 
-  private static Clock clock = Clock.systemDefaultZone();
+  public DateTimeProvider(Clock clock) {
+    Objects.requireNonNull(clock);
+    this.clock = clock;
+  }
 
-  public static Instant instant() {
+  public Instant instant() {
     return clock.instant();
   }
 
-  public static ZonedDateTime nowJST() {
-    return now(JST);
+  public ZonedDateTime now() {
+    return ZonedDateTime.now(clock.getZone());
   }
 
-  public static ZonedDateTime now(ZoneId zoneId) {
+  public ZonedDateTime now(ZoneId zoneId) {
     return ZonedDateTime.ofInstant(clock.instant(), zoneId);
-  }
-
-  protected static void setClock(Clock clock) {
-    DateTimeProvider.clock = clock;
   }
 }
