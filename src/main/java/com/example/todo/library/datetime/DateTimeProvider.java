@@ -20,7 +20,7 @@ public class DateTimeProvider {
   }
 
   public ZonedDateTime now() {
-    return ZonedDateTime.now(clock.getZone());
+    return ZonedDateTime.now(clock);
   }
 
   public ZonedDateTime now(ZoneId zoneId) {
