@@ -18,7 +18,7 @@ public class TimeZoneConfig {
   @Bean
   DateTimeProvider dateTimeProvider(Environment env) {
     String timeZone = env.getProperty("app.time-zone", "UTC");
-    log.info("Initializing the time zone with {}", timeZone);
+    log.info("Initializing application time zone with {}", timeZone);
     ZoneId zoneId = ZoneId.of(timeZone);
     Clock clock = Clock.system(zoneId);
     return new DateTimeProvider(clock);
