@@ -11,9 +11,9 @@ import java.time.Clock;
 import java.time.ZoneId;
 
 @Configuration
-public class TimeZoneConfig {
+public class DateTimeConfig {
 
-  private static final Logger log = LoggerFactory.getLogger(TimeZoneConfig.class);
+  private static final Logger log = LoggerFactory.getLogger(DateTimeConfig.class);
 
   @Bean
   DateTimeProvider dateTimeProvider(Environment env) {
