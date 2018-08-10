@@ -7,8 +7,8 @@ This is very simple ToDo application written in Java 8 or later using Spring Boo
 
 Why was this project created?
 
-I wanted my own product that I could freely develop,
-and I'd like to make use of my knowledge gained from this product for my business.
+I wanted my own product that I could freely develop.
+Also I'd like to make use of my knowledge gained from this product for my business.
 
 ## TODO
 
