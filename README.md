@@ -3,17 +3,26 @@
 
 This is very simple ToDo application written in Java 8 or later using Spring Boot v2.
 
-## MOTIVATION
+## Motivation
 
 Why was this project created?
 
 I wanted my own product that I could freely develop.
 Also I'd like to make use of my knowledge gained from this product for my business.
 
-## TODO
+## Technology Stack
 
+Under construction...
+
+## ToDo
+
+* CI by CircleCI
+* Testing by JUnit 5
+* Messaging by Kafka
 * Multiple Project by Gradle
 * OAuth2.0 by Spring Security
     - Authorization Server
     - Resource Server
 * Frontend
+    - Web
+    - Mobile
