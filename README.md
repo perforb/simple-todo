@@ -7,7 +7,7 @@ This is very simple ToDo application written in Java 8 or later using Spring Boo
 
 Why was this project created?
 
-I wanted my own product that I could freely develop.
+I wanted my own product which I could freely develop.
 Also I'd like to make use of my knowledge gained from this product for my business.
 
 ## Technology Stack
@@ -24,5 +24,4 @@ Under construction...
     - Authorization Server
     - Resource Server
 * Frontend
-    - Web
     - Mobile
