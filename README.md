@@ -14,14 +14,20 @@ Also I'd like to make use of my knowledge gained from this product for my busine
 
 Under construction...
 
-## ToDo
+## Want to do
 
-* CI by CircleCI
-* Testing by JUnit 5
-* Messaging by Kafka
-* Multiple Project by Gradle
-* OAuth2.0 by Spring Security
-    - Authorization Server
-    - Resource Server
-* Frontend
-    - Mobile
+* [x] CI
+    - [x] CircleCI
+* [x] Testing
+    - [x] JUnit 5
+* [ ] Messaging
+    - [ ] Kafka
+* [ ] Multiple Project
+    - [ ] Gradle
+* [ ] Authentication/Authorization
+    - [ ] Spring Security
+        - [ ] Authorization Server
+        - [ ] Resource Server
+* [ ] Frontend
+    - [ ] Web
+    - [ ] Native
