@@ -20,14 +20,15 @@ Under construction...
     - [x] CircleCI
 * [x] Testing
     - [x] JUnit 5
+* [ ] Multiple Projects
+    - [ ] Gradle
 * [ ] Messaging
     - [ ] Kafka
-* [ ] Multiple Project
-    - [ ] Gradle
 * [ ] Authentication/Authorization
     - [ ] Spring Security
         - [ ] Authorization Server
         - [ ] Resource Server
+* [ ] Machine Learning
 * [ ] Frontend
     - [ ] Web
     - [ ] Native
