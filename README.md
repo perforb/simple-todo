@@ -1,14 +1,14 @@
 # Simple ToDo Application
 [![CircleCI](https://circleci.com/gh/perforb/simple-todo/tree/master.svg?style=shield&circle-token=972d4b658137dd49daddae29e77b9255f08f1ccc)](https://circleci.com/gh/perforb/simple-todo/tree/master)
 
-This is very simple ToDo application written in Java 8 or later using Spring Boot v2.
+This is very simple ToDo application written in Java 8+ using Spring Boot v2.
 
 ## Motivation
 
-Why was this project created?
+**Why was this project created?**
 
 I wanted my own product which I could freely develop.
-Also I'd like to make use of my knowledge gained from this product for my business.
+Also, I'd like to make use of my knowledge gained from this product for my business.
 
 ## Technology Stack
 
@@ -22,6 +22,7 @@ Under construction...
     - [x] JUnit 5
 * [ ] Multiple Projects
     - [ ] Gradle
+* [ ] Clean Architecture
 * [ ] Messaging
     - [ ] Kafka
 * [ ] Authentication/Authorization
