@@ -1,1 +1,4 @@
-rootProject.name = 'todo'
+rootProject.name = 'simple-todo'
+
+include 'simple-todo-common'
+include 'simple-todo-api'

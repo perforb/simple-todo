@@ -5,7 +5,7 @@ This is very simple ToDo application written in Java 8+ using Spring Boot v2.
 
 ## Motivation
 
-**Why was this project created?**
+**Why did you created?**
 
 I wanted my own product which I could freely develop.
 Also, I'd like to make use of my knowledge gained from this product for my business.
@@ -14,22 +14,28 @@ Also, I'd like to make use of my knowledge gained from this product for my busin
 
 Under construction...
 
+## Run Application
+
+```
+$ ./gradlew build && ./gradlew :simple-todo-api:bootRun
+```
+
 ## Want to do
 
 * [x] CI
     - [x] CircleCI
 * [x] Testing
     - [x] JUnit 5
-* [ ] Multiple Projects
-    - [ ] Gradle
+* [x] Multiple Projects
+    - [x] Gradle
 * [ ] Clean Architecture
 * [ ] Messaging
     - [ ] Kafka
 * [ ] Authentication/Authorization
     - [ ] Spring Security
+        - [ ] JWT
         - [ ] Authorization Server
         - [ ] Resource Server
-* [ ] Machine Learning
 * [ ] Frontend
-    - [ ] Web
-    - [ ] Native
+    - [ ] Vue.js
+* [ ] Machine Learning

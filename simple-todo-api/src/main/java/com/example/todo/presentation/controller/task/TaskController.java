@@ -1,4 +1,4 @@
-package com.example.todo.presentation.task;
+package com.example.todo.presentation.controller.task;
 
 import com.example.todo.application.task.TaskService;
 import com.example.todo.domain.task.Task;
