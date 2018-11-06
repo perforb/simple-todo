@@ -5,7 +5,7 @@ This is very simple ToDo application written in Java 8+ using Spring Boot v2.
 
 ## Motivation
 
-**Why did you created?**
+**Why did you create this project?**
 
 I wanted my own product which I could freely develop.
 Also, I'd like to make use of my knowledge gained from this product for my business.
