@@ -20,6 +20,12 @@ Under construction...
 $ ./gradlew build && ./gradlew :simple-todo-api:bootRun
 ```
 
+## Run Docker
+
+```
+$ docker-compose -p simple-todo up -d
+```
+
 ## Want to do
 
 * [x] CI
