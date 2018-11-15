@@ -54,7 +54,6 @@ class TaskControllerTest {
       ).toInstant()
     );
 
-    String expectedResponse = mapper.writeValueAsString(task);
     when(service.findById(anyLong())).thenReturn(task);
 
     RequestBuilder builder = MockMvcRequestBuilders.get("/tasks/{id}", 1L)
@@ -71,6 +70,7 @@ class TaskControllerTest {
       .andDo(print())
       .andReturn();
 
+    String expectedResponse = mapper.writeValueAsString(task);
     String actualResponse = result.getResponse().getContentAsString();
 
     Assert.assertEquals(
