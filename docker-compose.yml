@@ -8,6 +8,7 @@ services:
       context: ./docker/mysql
     environment:
       MYSQL_ROOT_PASSWORD: pass
+      TZ: "Asia/Tokyo"
     ports:
       - "3306:3306"
     networks:
