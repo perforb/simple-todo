@@ -5,6 +5,10 @@
 spring:
   profiles:
     active: local
+  jackson:
+    serialization:
+      indent-output: false
+      write-dates-as-timestamps: true
 
 logging:
   path: /var/log

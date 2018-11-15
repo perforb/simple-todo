@@ -4,13 +4,13 @@ import java.util.List;
 
 public interface TaskRepository {
 
-  Task findById(Integer id);
+  Task findById(Long id);
 
   List<Task> list();
 
   void register(Task task);
 
-  void finish(Integer id);
+  void finish(Long id);
 
-  void delete(Integer id);
+  void delete(Long id);
 }

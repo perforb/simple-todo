@@ -17,7 +17,7 @@ public class TaskDataSource implements TaskRepository {
     this.mapper = mapper;
   }
 
-  public Task findById(Integer id) {
+  public Task findById(Long id) {
     return Optional.ofNullable(mapper.findById(id)).orElseThrow(() ->
       new NotFoundException(String.format(
         "The task with the given id [%s] was not found.",
@@ -34,11 +34,11 @@ public class TaskDataSource implements TaskRepository {
     mapper.insert(task);
   }
 
-  public void finish(Integer id) {
+  public void finish(Long id) {
     mapper.finish(id);
   }
 
-  public void delete(Integer id) {
+  public void delete(Long id) {
     mapper.deleteById(id);
   }
 }
