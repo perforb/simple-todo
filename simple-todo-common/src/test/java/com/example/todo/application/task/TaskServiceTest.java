@@ -22,7 +22,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -52,19 +52,19 @@ class TaskServiceTest {
 
     Instant createdAt = fixedDateTime.toInstant();
 
-    when(taskRepository.findById(anyInt())).thenReturn(
+    when(taskRepository.findById(anyLong())).thenReturn(
       new Task(
-        1,
+        1L,
         "task1",
         false,
         createdAt
       )
     );
 
-    Task task = taskRepository.findById(1);
+    Task task = taskRepository.findById(1L);
 
     assertAll("test equal properties",
-      () -> assertEquals(Integer.valueOf(1), task.getId()),
+      () -> assertEquals(Long.valueOf(1), task.getId()),
       () -> assertEquals("task1", task.getTitle()),
       () -> assertFalse(task.isDone()),
       () -> assertEquals(createdAt, task.getCreatedAt())
@@ -73,7 +73,7 @@ class TaskServiceTest {
 
   @Test
   void findByIdIfNotFound() {
-    when(taskRepository.findById(anyInt())).thenThrow(
+    when(taskRepository.findById(anyLong())).thenThrow(
       new NotFoundException(String.format(
         "A task with the given ID was not found. [taskId: %s]",
         99
@@ -82,7 +82,7 @@ class TaskServiceTest {
 
     assertThrows(
       NotFoundException.class,
-      () -> underTest.findById(99)
+      () -> underTest.findById(99L)
     );
   }
 
@@ -97,14 +97,14 @@ class TaskServiceTest {
     when(provider.instant()).thenReturn(fixedDateTime.toInstant());
 
     Task newTask = underTest.register(new Task(
-      1,
+      1L,
       "task1",
       false,
       null
     ));
 
     assertAll("test equal properties",
-      () -> assertEquals(Integer.valueOf(1), newTask.getId()),
+      () -> assertEquals(Long.valueOf(1), newTask.getId()),
       () -> assertEquals("task1", newTask.getTitle()),
       () -> assertFalse(newTask.isDone()),
       () -> assertEquals(fixedDateTime.toInstant(), newTask.getCreatedAt())

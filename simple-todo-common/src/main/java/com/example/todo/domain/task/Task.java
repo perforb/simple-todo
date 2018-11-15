@@ -6,7 +6,7 @@ import java.time.Instant;
 
 public class Task {
 
-  private Integer id;
+  private Long id;
   @NotBlank(message = "must not be blank")
   @Size(max = 30, message = "must be lower or equal to 30")
   private String title;
@@ -17,7 +17,7 @@ public class Task {
   }
 
   public Task(
-    Integer id,
+    Long id,
     String title,
     boolean done,
     Instant createdAt
@@ -28,11 +28,11 @@ public class Task {
     this.createdAt = createdAt;
   }
 
-  public Integer getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(Integer id) {
+  public void setId(Long id) {
     this.id = id;
   }
 

@@ -24,7 +24,7 @@ public class TaskService {
     return repository.list();
   }
 
-  public Task findById(Integer id) {
+  public Task findById(Long id) {
     return repository.findById(id);
   }
 
@@ -37,12 +37,12 @@ public class TaskService {
   }
 
   @Transactional
-  public void finish(Integer id) {
+  public void finish(Long id) {
     repository.finish(id);
   }
 
   @Transactional
-  public void delete(Integer id) {
+  public void delete(Long id) {
     repository.delete(id);
   }
 }
