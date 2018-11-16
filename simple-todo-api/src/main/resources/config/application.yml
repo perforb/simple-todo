@@ -15,3 +15,6 @@ logging:
 
 app:
   time-zone: Asia/Tokyo
+
+jwt:
+  secret-key: ${JWT_SECRET_KEY:FDqAKV9pO3Fc89GJ66F8yTqWjUSnSTMoV9vgWrOUoo5ijTRJmk1PT2eMCpAg1AwTsjGnCaD4ehmBtKOZ}
