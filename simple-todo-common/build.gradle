@@ -1,11 +1,11 @@
 jar {
-    baseName = 'simple-todo-common'
-    version = '0.0.1-SNAPSHOT'
+    baseName = "simple-todo-common"
+    version = "0.0.1-SNAPSHOT"
 }
 
 dependencies {
-    compile('org.springframework.boot:spring-boot-starter')
-    compile('javax.validation:validation-api')
+    compile("org.springframework.boot:spring-boot-starter")
+    compile("javax.validation:validation-api")
     compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisSpringBootStarterVersion}")
     compileOnly("org.springframework.boot:spring-boot-configuration-processor")
     runtime("com.h2database:h2")
