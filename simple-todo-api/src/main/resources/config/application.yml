@@ -11,10 +11,10 @@ spring:
       write-dates-as-timestamps: true
 
 logging:
-  path: /var/log
+  path: ${APP_LOG_DIR:/var/log/app}
 
 app:
-  time-zone: Asia/Tokyo
+  time-zone: ${APP_TIME_ZONE:Asia/Tokyo}
 
 jwt:
   secret-key: ${JWT_SECRET_KEY:FDqAKV9pO3Fc89GJ66F8yTqWjUSnSTMoV9vgWrOUoo5ijTRJmk1PT2eMCpAg1AwTsjGnCaD4ehmBtKOZ}
