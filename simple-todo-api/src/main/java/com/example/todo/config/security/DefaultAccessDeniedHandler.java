@@ -24,7 +24,10 @@ public class DefaultAccessDeniedHandler implements AccessDeniedHandler {
       return;
     }
 
-    log.error("Caught an exception.", exception);
-    response.sendError(HttpStatus.FORBIDDEN.value(), HttpStatus.FORBIDDEN.getReasonPhrase());
+    log.error("Access denied.", exception);
+    response.sendError(
+      HttpStatus.FORBIDDEN.value(),
+      HttpStatus.FORBIDDEN.getReasonPhrase()
+    );
   }
 }

@@ -24,14 +24,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
 
-public class TokenFilter extends GenericFilterBean {
+public class AuthenticationFilter extends GenericFilterBean {
 
-  private static final Logger log = LoggerFactory.getLogger(TokenFilter.class);
+  private static final Logger log = LoggerFactory.getLogger(AuthenticationFilter.class);
 
   private final UserRepository repository;
   private final Algorithm algorithm;
 
-  public TokenFilter(UserRepository repository, String secretKey) {
+  public AuthenticationFilter(UserRepository repository, String secretKey) {
     this.repository = repository;
     this.algorithm = Algorithm.HMAC512(secretKey);
   }
