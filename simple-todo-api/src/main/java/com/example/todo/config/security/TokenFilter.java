@@ -45,6 +45,11 @@ public class TokenFilter extends GenericFilterBean {
 
     String token = getToken(request);
 
+    if (token.isEmpty()) {
+      chain.doFilter(request, response);
+      return;
+    }
+
     try {
       DecodedJWT decodedJWT = verifyToken(token);
       setAuthentication(decodedJWT);
@@ -55,7 +60,6 @@ public class TokenFilter extends GenericFilterBean {
         HttpStatus.UNAUTHORIZED.value(),
         HttpStatus.UNAUTHORIZED.getReasonPhrase()
       );
-      throw e;
     }
 
     chain.doFilter(request, response);
