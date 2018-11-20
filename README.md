@@ -37,7 +37,7 @@ $ docker-compose -p simple-todo up -d
     - [ ] Kafka
 * [ ] Authentication/Authorization
     - [ ] Spring Security
-        - [ ] JWT
+        - [x] JWT
         - [ ] Authorization Server
         - [ ] Resource Server
 * [ ] Frontend
