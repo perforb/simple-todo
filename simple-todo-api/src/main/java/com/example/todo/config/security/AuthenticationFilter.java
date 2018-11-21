@@ -5,14 +5,14 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.example.todo.domain.user.UserDetails;
-import com.example.todo.domain.user.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.filter.GenericFilterBean;
 
 import javax.servlet.FilterChain;
@@ -28,11 +28,11 @@ public class AuthenticationFilter extends GenericFilterBean {
 
   private static final Logger log = LoggerFactory.getLogger(AuthenticationFilter.class);
 
-  private final UserRepository repository;
+  private final UserDetailsService service;
   private final Algorithm algorithm;
 
-  public AuthenticationFilter(UserRepository repository, String secretKey) {
-    this.repository = repository;
+  public AuthenticationFilter(UserDetailsService service, String secretKey) {
+    this.service = service;
     this.algorithm = Algorithm.HMAC512(secretKey);
   }
 
@@ -79,14 +79,12 @@ public class AuthenticationFilter extends GenericFilterBean {
 
   private void setAuthentication(DecodedJWT jwt) {
     String userId = jwt.getSubject();
-    repository.findByUserId(userId).ifPresent(user -> {
-      UserDetails userDetails = new UserDetails(user);
-      SecurityContextHolder.getContext()
-        .setAuthentication(new UsernamePasswordAuthenticationToken(
-          userDetails,
-          null,
-          userDetails.getAuthorities())
-        );
-    });
+    UserDetails user = service.loadUserByUsername(userId);
+    SecurityContextHolder.getContext()
+      .setAuthentication(new UsernamePasswordAuthenticationToken(
+        user,
+        null,
+        user.getAuthorities()
+      ));
   }
 }

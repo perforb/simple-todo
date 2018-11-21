@@ -1,20 +1,14 @@
 package com.example.todo.config.security;
 
-import com.example.todo.domain.user.UserRepository;
 import com.example.todo.library.datetime.DateTimeProvider;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.authentication.configuration.GlobalAuthenticationConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -31,16 +25,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   private final Environment env;
   private final MappingJackson2HttpMessageConverter converter;
   private final DateTimeProvider provider;
-  private final UserRepository repository;
+  private final UserDetailsService service;
 
   public SecurityConfig(Environment env,
                         MappingJackson2HttpMessageConverter converter,
                         DateTimeProvider provider,
-                        UserRepository repository) {
+                        UserDetailsService service) {
     this.env = env;
     this.converter = converter;
     this.provider = provider;
-    this.repository = repository;
+    this.service = service;
   }
 
   @Override
@@ -78,7 +72,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Bean
   GenericFilterBean authenticationFilter() {
     String secretKey = getSecretKey();
-    return new AuthenticationFilter(repository, secretKey);
+    return new AuthenticationFilter(service, secretKey);
   }
 
   @Bean
@@ -118,28 +112,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   private String getSecretKey() {
     return env.getProperty("app.authorize.jwt.secret-key");
-  }
-
-  @Configuration
-  static class AuthenticationConfiguration extends GlobalAuthenticationConfigurerAdapter {
-
-    private final UserDetailsService service;
-
-    public AuthenticationConfiguration(UserDetailsService service) {
-      this.service = service;
-    }
-
-    @Bean
-    PasswordEncoder passwordEncoder() {
-      return new BCryptPasswordEncoder();
-    }
-
-    @Override
-    public void init(AuthenticationManagerBuilder builder) throws Exception {
-      builder
-        .eraseCredentials(true)
-        .userDetailsService(service)
-        .passwordEncoder(passwordEncoder());
-    }
   }
 }
