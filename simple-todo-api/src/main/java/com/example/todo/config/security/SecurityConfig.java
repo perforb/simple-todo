@@ -1,6 +1,7 @@
 package com.example.todo.config.security;
 
 import com.example.todo.application.user.UserService;
+import com.example.todo.domain.UndefinedException;
 import com.example.todo.domain.user.UserRepository;
 import com.example.todo.library.datetime.DateTimeProvider;
 import org.springframework.context.annotation.Bean;
@@ -22,6 +23,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.web.filter.GenericFilterBean;
+
+import java.util.Optional;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -137,6 +140,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   }
 
   private String getSecretKey() {
-    return env.getProperty("app.authorize.jwt.secret-key");
+    return Optional.ofNullable(env.getProperty("app.authorize.jwt.secret-key"))
+      .orElseThrow(() -> new UndefinedException("must define the secret-key of JWT."));
   }
 }

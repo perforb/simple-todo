@@ -64,7 +64,7 @@ public class AuthenticationFilter extends GenericFilterBean {
       DecodedJWT decodedJWT = verifyToken(token);
       setAuthentication(decodedJWT);
     } catch (JWTVerificationException e) {
-      log.error("Failed to verify the token. [token: {}]", token);
+      log.error(String.format("Failed to verify the token. [token: %s]", token), e);
       SecurityContextHolder.clearContext();
       writeUnauthenticatedResponse((HttpServletResponse) response);
       return;
