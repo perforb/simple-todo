@@ -24,16 +24,16 @@ public class DefaultAuthenticationEntryPoint implements AuthenticationEntryPoint
   }
 
   @Override
-  public void commence(HttpServletRequest request,
-                       HttpServletResponse response,
+  public void commence(HttpServletRequest req,
+                       HttpServletResponse res,
                        AuthenticationException exception) throws IOException {
 
-    if (response.isCommitted()) {
+    if (res.isCommitted()) {
       log.debug("The response has already been committed.");
       return;
     }
 
-    AuthenticationResponse tokenResponse = new AuthenticationResponse(
+    AuthenticationResponse response = new AuthenticationResponse(
       "",
       "",
       "",
@@ -43,7 +43,7 @@ public class DefaultAuthenticationEntryPoint implements AuthenticationEntryPoint
       "An authentication request is rejected because the credentials are invalid."
     );
 
-    HttpOutputMessage message = new ServletServerHttpResponse(response);
-    converter.write(tokenResponse, MediaType.APPLICATION_JSON_UTF8, message);
+    HttpOutputMessage message = new ServletServerHttpResponse(res);
+    converter.write(response, MediaType.APPLICATION_JSON_UTF8, message);
   }
 }
