@@ -42,17 +42,17 @@ public class DefaultAuthenticationSuccessHandler implements AuthenticationSucces
   }
 
   @Override
-  public void onAuthenticationSuccess(HttpServletRequest request,
-                                      HttpServletResponse response,
+  public void onAuthenticationSuccess(HttpServletRequest req,
+                                      HttpServletResponse res,
                                       Authentication auth) throws IOException {
 
-    if (response.isCommitted()) {
+    if (res.isCommitted()) {
       log.debug("The response has already been committed.");
       return;
     }
 
     String accessToken = generateToken(auth);
-    AuthenticationResponse tokenResponse = new AuthenticationResponse(
+    AuthenticationResponse response = new AuthenticationResponse(
       accessToken,
       "",
       "Bearer",
@@ -62,9 +62,9 @@ public class DefaultAuthenticationSuccessHandler implements AuthenticationSucces
       ""
     );
 
-    HttpOutputMessage message = new ServletServerHttpResponse(response);
-    converter.write(tokenResponse, MediaType.APPLICATION_JSON_UTF8, message);
-    response.setStatus(HttpStatus.OK.value());
+    HttpOutputMessage message = new ServletServerHttpResponse(res);
+    converter.write(response, MediaType.APPLICATION_JSON_UTF8, message);
+    res.setStatus(HttpStatus.OK.value());
   }
 
   private String generateToken(Authentication auth) {
