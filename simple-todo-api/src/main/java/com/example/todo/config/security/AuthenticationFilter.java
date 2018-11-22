@@ -5,14 +5,18 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.example.todo.application.user.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.http.server.ServletServerHttpResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.filter.GenericFilterBean;
 
 import javax.servlet.FilterChain;
@@ -28,11 +32,17 @@ public class AuthenticationFilter extends GenericFilterBean {
 
   private static final Logger log = LoggerFactory.getLogger(AuthenticationFilter.class);
 
-  private final UserDetailsService service;
+  private final UserService service;
+  private final MappingJackson2HttpMessageConverter converter;
   private final Algorithm algorithm;
 
-  public AuthenticationFilter(UserDetailsService service, String secretKey) {
+  public AuthenticationFilter(
+    UserService service,
+    MappingJackson2HttpMessageConverter converter,
+    String secretKey
+  ) {
     this.service = service;
+    this.converter = converter;
     this.algorithm = Algorithm.HMAC512(secretKey);
   }
 
@@ -56,10 +66,8 @@ public class AuthenticationFilter extends GenericFilterBean {
     } catch (JWTVerificationException e) {
       log.error("Failed to verify the token. [token: {}]", token);
       SecurityContextHolder.clearContext();
-      ((HttpServletResponse) response).sendError(
-        HttpStatus.UNAUTHORIZED.value(),
-        HttpStatus.UNAUTHORIZED.getReasonPhrase()
-      );
+      writeUnauthenticatedResponse((HttpServletResponse) response);
+      return;
     }
 
     chain.doFilter(request, response);
@@ -78,13 +86,30 @@ public class AuthenticationFilter extends GenericFilterBean {
   }
 
   private void setAuthentication(DecodedJWT jwt) {
-    String userId = jwt.getSubject();
-    UserDetails user = service.loadUserByUsername(userId);
+    long id = Long.parseLong(jwt.getSubject());
+    UserDetails user = service.findById(id);
     SecurityContextHolder.getContext()
       .setAuthentication(new UsernamePasswordAuthenticationToken(
         user,
         null,
         user.getAuthorities()
       ));
+  }
+
+  private void writeUnauthenticatedResponse(HttpServletResponse res) throws IOException {
+    res.setStatus(HttpStatus.UNAUTHORIZED.value());
+
+    AuthenticationResponse response = new AuthenticationResponse(
+      "",
+      "",
+      "",
+      0,
+      "",
+      "Unauthenticated",
+      "An authentication request is rejected because the credentials are invalid."
+    );
+
+    HttpOutputMessage message = new ServletServerHttpResponse(res);
+    converter.write(response, MediaType.APPLICATION_JSON_UTF8, message);
   }
 }
