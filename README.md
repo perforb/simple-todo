@@ -36,10 +36,9 @@ $ docker-compose -p simple-todo up -d
 * [ ] Messaging
     - [ ] Kafka
 * [ ] Authentication/Authorization
-    - [ ] Spring Security
-        - [x] JWT
-        - [ ] Authorization Server
-        - [ ] Resource Server
+    - [x] JWT
+    - [ ] Authorization Server
+    - [ ] Resource Server
 * [ ] Frontend
     - [ ] Vue.js
 * [ ] Machine Learning
