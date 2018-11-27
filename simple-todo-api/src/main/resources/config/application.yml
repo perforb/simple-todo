@@ -15,8 +15,7 @@ logging:
 
 app:
   time-zone: ${APP_TIME_ZONE:Asia/Tokyo}
-  authorize:
-    token:
-      expires-in: ${JWT_EXPIRES_IN:30} # 30 minutes
-    jwt:
-      secret-key: ${JWT_SECRET_KEY:FDqAKV9pO3Fc89GJ66F8yTqWjUSnSTMoV9vgWrOUoo5ijTRJmk1PT2eMCpAg1AwTsjGnCaD4ehmBtKOZ}
+  token:
+    expires-in: ${JWT_EXPIRES_IN:30} # 30 minutes
+  jwt:
+    secret-key: ${JWT_SECRET_KEY:FDqAKV9pO3Fc89GJ66F8yTqWjUSnSTMoV9vgWrOUoo5ijTRJmk1PT2eMCpAg1AwTsjGnCaD4ehmBtKOZ}

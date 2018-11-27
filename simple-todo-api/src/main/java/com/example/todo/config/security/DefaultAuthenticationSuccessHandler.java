@@ -73,14 +73,12 @@ public class DefaultAuthenticationSuccessHandler implements AuthenticationSucces
     Date issuedAt = Date.from(provider.instant());
     Date notBefore = new Date(issuedAt.getTime());
     Date expiresAt = new Date(issuedAt.getTime() + expirationTime);
-    String token = JWT.create()
+
+    return JWT.create()
       .withIssuedAt(issuedAt)
       .withNotBefore(notBefore)
       .withExpiresAt(expiresAt)
       .withSubject(userDetails.getUser().getId().toString())
       .sign(algorithm);
-
-    log.debug("generated token: {}", token);
-    return token;
   }
 }
