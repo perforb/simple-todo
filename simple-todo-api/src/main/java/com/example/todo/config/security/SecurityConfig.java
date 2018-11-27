@@ -118,7 +118,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   AuthenticationSuccessHandler authenticationSuccessHandler() {
     String secretKey = getSecretKey();
     int expiresIn = Integer.parseInt(env.getProperty(
-      "app.authorize.token.expires-in", "30"
+      "app.token.expires-in", "30"
     ));
 
     return new DefaultAuthenticationSuccessHandler(
@@ -140,7 +140,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   }
 
   private String getSecretKey() {
-    return Optional.ofNullable(env.getProperty("app.authorize.jwt.secret-key"))
+    return Optional.ofNullable(env.getProperty("app.jwt.secret-key"))
       .orElseThrow(() -> new UndefinedException("must define the secret-key of JWT."));
   }
 }
