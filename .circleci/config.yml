@@ -30,4 +30,4 @@ jobs:
             - ~/.gradle
           key: project-dependencies-{{ checksum "build.gradle" }}
 
-      - run: gradle test
+      - run: gradle clean && gradle build
