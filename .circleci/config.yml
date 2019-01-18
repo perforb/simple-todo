@@ -1,42 +1,33 @@
-# Java Gradle CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-java/ for more details
-#
+# Documentation:
+# https://circleci.com/docs/2.0/language-java/
 version: 2
 jobs:
   build:
-    docker:
-      # specify the version you desire here
-      - image: circleci/openjdk:11-jdk
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
 
     working_directory: ~/repo
 
+    docker:
+      - image: circleci/openjdk:11-jdk
+
     environment:
-      # Customize the JVM maximum heap limit
       JVM_OPTS: -Xmx3200m
       TERM: dumb
 
     steps:
+      # check out source code to working directory
       - checkout
 
-      # Download and cache dependencies
+      # restore the saved cache after the first run or if `build.gradle` has changed
       - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "build.gradle" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+          keys: project-dependencies-{{ checksum "build.gradle" }}
 
-      - run: gradle dependencies
+      # gets the project dependencies
+      - run: gradle :simple-todo-common:dependencies && gradle :simple-todo-api:dependencies
 
+      # saves the project dependencies
       - save_cache:
           paths:
             - ~/.gradle
-          key: v1-dependencies-{{ checksum "build.gradle" }}
+          key: project-dependencies-{{ checksum "build.gradle" }}
 
-      # run tests!
-      - run: gradle test
+      - run: gradle clean && gradle build
