@@ -1,15 +1,13 @@
-jar {
-    baseName = "simple-todo-common"
-    version = "0.0.1-SNAPSHOT"
-}
-
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter")
-    compile("javax.validation:validation-api")
-    compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisSpringBootStarterVersion}")
-    compile("org.springframework.boot:spring-boot-starter-security")
-    compile("com.auth0:java-jwt:${javaJwtVersion}")
-    compileOnly("org.springframework.boot:spring-boot-configuration-processor")
-    runtime("com.h2database:h2")
-    runtime("mysql:mysql-connector-java")
+    implementation "org.springframework.boot:spring-boot-starter-security"
+    implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisSpringBootStarterVersion}"
+    implementation "javax.validation:validation-api"
+
+    runtimeOnly "com.h2database:h2"
+    runtimeOnly "mysql:mysql-connector-java"
+
+    testImplementation "org.junit.platform:junit-platform-runner"
+    testImplementation "org.junit.jupiter:junit-jupiter-api"
+    testImplementation "org.mockito:mockito-junit-jupiter"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
 }

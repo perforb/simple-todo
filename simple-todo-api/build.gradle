@@ -1,12 +1,21 @@
 apply plugin: "org.springframework.boot"
 
 bootJar {
-    baseName = "simple-todo-api"
-    version = "0.0.1-SNAPSHOT"
+    mainClassName = "com.example.todo.Application"
 }
 
 dependencies {
-    compile project(":simple-todo-common")
-    compile("org.springframework.boot:spring-boot-starter-actuator")
-    compile("org.springframework.boot:spring-boot-starter-web")
+    implementation project(":simple-todo-common")
+    implementation "org.springframework.boot:spring-boot-starter"
+    implementation "org.springframework.boot:spring-boot-starter-security"
+    implementation "org.springframework.boot:spring-boot-starter-actuator"
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "com.auth0:java-jwt:${javaJwtVersion}"
+
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+    testImplementation "org.springframework.security:spring-security-test"
+    testImplementation "org.junit.platform:junit-platform-runner"
+    testImplementation "org.junit.jupiter:junit-jupiter-api"
+    testImplementation "org.mockito:mockito-junit-jupiter"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
 }
