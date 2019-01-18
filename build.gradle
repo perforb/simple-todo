@@ -35,6 +35,11 @@ subprojects {
 
     dependencies {
         // import a BOM
+        // https://github.com/spring-projects/spring-boot/blob/master/spring-boot-project/spring-boot-dependencies/pom.xml
         implementation platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
+    }
+
+    test {
+        useJUnitPlatform()
     }
 }
