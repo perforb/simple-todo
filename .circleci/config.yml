@@ -19,15 +19,21 @@ jobs:
 
       # restore the saved cache after the first run or if `build.gradle` has changed
       - restore_cache:
-          keys: project-dependencies-{{ checksum "build.gradle" }}
+          keys:
+            - v1-dependencies-{{ checksum "build.gradle" }}
+            - v1-dependencies
 
       # gets the project dependencies
-      - run: gradle :simple-todo-common:dependencies && gradle :simple-todo-api:dependencies
+      - run: |
+          gradle :simple-todo-common:dependencies
+          gradle :simple-todo-api:dependencies
 
       # saves the project dependencies
       - save_cache:
+          key: v1-dependencies-{{ checksum "build.gradle" }}
           paths:
-            - ~/.gradle
-          key: project-dependencies-{{ checksum "build.gradle" }}
+            - ~/repo/.gradle
 
-      - run: gradle clean && gradle build
+      - run: |
+          gradle clean
+          gradle build
