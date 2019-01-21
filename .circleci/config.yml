@@ -32,7 +32,7 @@ jobs:
       - save_cache:
           key: v1-dependencies-{{ checksum "build.gradle" }}
           paths:
-            - ~/repo/.gradle
+            - ~/.gradle
 
       - run: |
           gradle clean
