@@ -1,39 +1,85 @@
-# Documentation:
-# https://circleci.com/docs/2.0/language-java/
-version: 2
-jobs:
-  build:
+# Sample 2.0 config.yml Files
+# https://circleci.com/docs/2.0/sample-config/
 
-    working_directory: ~/repo
-
+executors:
+  default:
     docker:
       - image: circleci/openjdk:11-jdk
+        environment:
+          JVM_OPTS: -Xmx3200m
+          SPRING_PROFILES_ACTIVE: test
+    working_directory: ~/repo
+  with_db:
+    docker:
+      - image: circleci/openjdk:11-jdk
+        environment:
+          JVM_OPTS: -Xmx3200m
+          SPRING_PROFILES_ACTIVE: test
+      - image: circleci/mysql:8.0
+        command: mysqld --default-authentication-plugin=mysql_native_password
+        environment:
+          MYSQL_ALLOW_EMPTY_PASSWORD: true
+          MYSQL_ROOT_PASSWORD: ''
+          MYSQL_DATABASE: simple-todo_test
+    working_directory: ~/repo
 
-    environment:
-      JVM_OPTS: -Xmx3200m
-      TERM: dumb
-
+version: 2.1
+jobs:
+  checkout_code:
+    executor: default
     steps:
-      # check out source code to working directory
       - checkout
+      - save_cache:
+          key: v1-repo-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - ~/repo
 
-      # restore the saved cache after the first run or if `build.gradle` has changed
+  project_dependencies:
+    executor: default
+    steps:
+      - restore_cache:
+          key: v1-repo-{{ .Environment.CIRCLE_SHA1 }}
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "build.gradle" }}
             - v1-dependencies
-
-      # gets the project dependencies
-      - run: |
-          gradle :simple-todo-common:dependencies
-          gradle :simple-todo-api:dependencies
-
-      # saves the project dependencies
+      - run:
+          name: Print project dependencies
+          command: |
+            gradle :simple-todo-common:dependencies
+            gradle :simple-todo-api:dependencies
       - save_cache:
           key: v1-dependencies-{{ checksum "build.gradle" }}
           paths:
-            - ~/.gradle
+            - ~/repo
 
-      - run: |
-          gradle clean
-          gradle build
+  test_db:
+    executor: with_db
+    steps:
+      - restore_cache:
+          key: v1-repo-{{ .Environment.CIRCLE_SHA1 }}
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "build.gradle" }}
+            - v1-dependencies
+      - run:
+          name: Wait for launching databasee
+          command: |
+            dockerize -wait \
+            tcp://127.0.0.1:3306 -timeout 120s
+      - run:
+          name: Do test
+          command: |
+            gradle test
+
+workflows:
+  version: 2
+  build_test:
+    jobs:
+      - checkout_code
+      - project_dependencies:
+          requires:
+            - checkout_code
+      - test_db:
+          requires:
+            - project_dependencies
