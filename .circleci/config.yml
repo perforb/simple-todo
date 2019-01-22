@@ -1,5 +1,6 @@
 # Sample 2.0 config.yml Files
 # https://circleci.com/docs/2.0/sample-config/
+# https://circleci.com/docs/2.0/language-java/
 
 version: 2.1
 executors:
@@ -9,7 +10,7 @@ executors:
         environment:
           JVM_OPTS: -Xmx3200m
           SPRING_PROFILES_ACTIVE: ci
-    working_directory: ~/repo
+    working_directory: ~/workspace
   with_db:
     docker:
       - image: circleci/openjdk:11-jdk-browsers
@@ -24,61 +25,117 @@ executors:
         environment:
           MYSQL_ALLOW_EMPTY_PASSWORD: true
           MYSQL_DATABASE: simple-todo
-    working_directory: ~/repo
+    working_directory: ~/workspace
+
+commands:
+  restore_dependencies:
+    steps:
+      - restore_cache:
+          keys:
+            - dependencies-{{ checksum "build.gradle" }}-{{ checksum "simple-todo-common/build.gradle" }}-{{ checksum "simple-todo-api/build.gradle" }}
+  save_dependencies:
+    steps:
+      - save_cache:
+          key: dependencies-{{ checksum "build.gradle" }}-{{ checksum "simple-todo-common/build.gradle" }}-{{ checksum "simple-todo-api/build.gradle" }}
+          paths:
+            - ~/workspace/.gradle
 
 jobs:
   setup:
     executor: default
     steps:
       - checkout
-      - save_cache:
-          key: v1-repo-{{ .Environment.CIRCLE_SHA1 }}
-          paths:
-            - ~/repo
-
-  print_dependencies:
-    executor: default
-    steps:
-      - restore_cache:
-          key: v1-repo-{{ .Environment.CIRCLE_SHA1 }}
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "build.gradle" }}-{{ checksum "simple-todo-common/build.gradle" }}-{{ checksum "simple-todo-api/build.gradle" }}
+      - restore_dependencies
       - run:
-          name: Print project dependencies
+          name: Download dependencies
           command: |
+            ./gradlew dependencies
             ./gradlew :simple-todo-common:dependencies
             ./gradlew :simple-todo-api:dependencies
-      - save_cache:
-          key: v1-dependencies-{{ checksum "build.gradle" }}-{{ checksum "simple-todo-common/build.gradle" }}-{{ checksum "simple-todo-api/build.gradle" }}
-          paths:
-            - ~/repo
-
-  build_project:
+      - save_dependencies
+  test_common:
     executor: with_db
     steps:
-      - restore_cache:
-          key: v1-repo-{{ .Environment.CIRCLE_SHA1 }}
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "build.gradle" }}-{{ checksum "simple-todo-common/build.gradle" }}-{{ checksum "simple-todo-api/build.gradle" }}
+      - checkout
       - run:
           name: Waiting for databasee
           command: |
             dockerize -wait tcp://127.0.0.1:3306 -timeout 1m
       - run:
-          name: Do build
+          name: Test common module
+          command: |
+            ./gradlew :simple-todo-common:dependencies
+            ./gradlew :simple-todo-common:test
+  test_api:
+    executor: with_db
+    steps:
+      - checkout
+      - run:
+          name: Waiting for databasee
+          command: |
+            dockerize -wait tcp://127.0.0.1:3306 -timeout 1m
+      - run:
+          name: Test api module
+          command: |
+            ./gradlew :simple-todo-api:dependencies
+            ./gradlew :simple-todo-api:test
+  build:
+    executor: default
+    steps:
+      - checkout
+      - restore_dependencies
+      - run:
+          name: Build project
           command: |
             ./gradlew clean
             ./gradlew build
+      - store_artifacts:
+          path: simple-todo-api/build/libs/simple-todo-api-0.0.1-SNAPSHOT.jar
+  deploy:
+    executor: default
+    parameters:
+      destination:
+        type: enum
+        enum: ["dev", "staging", "prod"]
+    steps:
+      - run:
+          name: Deploy Over SSH
+          command: |
+            echo 'Done deployment'
+            # ssh $SSH_USER@$SSH_HOST "<remote deploy command>"
+  notify:
+    executor: default
+    steps:
+      - run:
+          name: Notify completion of deployment
+          command: |
+            curl -X POST -H 'Content-type: application/json' \
+            --data "{'text': 'Done deployment: \
+            ${CIRCLE_PROJECT_REPONAME}-${CIRCLE_BRANCH}-${CIRCLE_SHA1} \
+            '}" \
+            ${SLACK_WEBHOOK_URL}
 
 workflows:
-  build_test:
+  test_build_deploy:
     jobs:
       - setup
-      - print_dependencies:
+      - test_common:
           requires:
             - setup
-      - build_project:
+      - test_api:
           requires:
-            - print_dependencies
+            - setup
+      - build:
+          requires:
+            - test_common
+            - test_api
+      - deploy:
+          destination: dev
+          requires:
+            - build
+          filters:
+            branches:
+              only: develop
+      - notify:
+          requires:
+            - deploy
