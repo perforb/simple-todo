@@ -32,13 +32,13 @@ commands:
     steps:
       - restore_cache:
           keys:
-            - dependencies-{{ checksum "build.gradle" }}-{{ checksum "simple-todo-common/build.gradle" }}-{{ checksum "simple-todo-api/build.gradle" }}
+            - v2-dependencies-{{ checksum "build.gradle" }}-{{ checksum "simple-todo-common/build.gradle" }}-{{ checksum "simple-todo-api/build.gradle" }}
   save_dependencies:
     steps:
       - save_cache:
-          key: dependencies-{{ checksum "build.gradle" }}-{{ checksum "simple-todo-common/build.gradle" }}-{{ checksum "simple-todo-api/build.gradle" }}
+          key: v2-dependencies-{{ checksum "build.gradle" }}-{{ checksum "simple-todo-common/build.gradle" }}-{{ checksum "simple-todo-api/build.gradle" }}
           paths:
-            - ~/workspace/.gradle
+            - ~/.gradle
 
 jobs:
   setup:
@@ -57,6 +57,7 @@ jobs:
     executor: with_db
     steps:
       - checkout
+      - restore_dependencies
       - run:
           name: Waiting for databasee
           command: |
@@ -64,12 +65,12 @@ jobs:
       - run:
           name: Test common module
           command: |
-            ./gradlew :simple-todo-common:dependencies
             ./gradlew :simple-todo-common:test
   test_api:
     executor: with_db
     steps:
       - checkout
+      - restore_dependencies
       - run:
           name: Waiting for databasee
           command: |
@@ -77,7 +78,6 @@ jobs:
       - run:
           name: Test api module
           command: |
-            ./gradlew :simple-todo-api:dependencies
             ./gradlew :simple-todo-api:test
   build:
     executor: default
