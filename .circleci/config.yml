@@ -32,11 +32,11 @@ commands:
     steps:
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "build.gradle" }}-{{ checksum "simple-todo-common/build.gradle" }}-{{ checksum "simple-todo-api/build.gradle" }}
+            - v2-dependencies-{{ checksum "build.gradle" }}-{{ checksum "simple-todo-common/build.gradle" }}-{{ checksum "simple-todo-api/build.gradle" }}
   save_dependencies:
     steps:
       - save_cache:
-          key: v1-dependencies-{{ checksum "build.gradle" }}-{{ checksum "simple-todo-common/build.gradle" }}-{{ checksum "simple-todo-api/build.gradle" }}
+          key: v2-dependencies-{{ checksum "build.gradle" }}-{{ checksum "simple-todo-common/build.gradle" }}-{{ checksum "simple-todo-api/build.gradle" }}
           paths:
             - ~/.gradle
 
