@@ -1,6 +1,6 @@
 # Simple ToDo Application
-[![CircleCI](https://circleci.com/gh/perforb/simple-todo/tree/master.svg?style=shield)](https://circleci.com/gh/perforb/simple-todo/tree/master)
-[![CircleCI](https://circleci.com/gh/perforb/simple-todo/tree/develop.svg?style=shield)](https://circleci.com/gh/perforb/simple-todo/tree/develop)
+[![CircleCI](https://circleci.com/gh/perforb/simple-todo/tree/master.svg?style=shield&circle-token=972d4b658137dd49daddae29e77b9255f08f1ccc)](https://circleci.com/gh/perforb/simple-todo/tree/master)
+[![CircleCI](https://circleci.com/gh/perforb/simple-todo/tree/develop.svg?style=shield&circle-token=972d4b658137dd49daddae29e77b9255f08f1ccc)](https://circleci.com/gh/perforb/simple-todo/tree/develop)
 
 This is very simple ToDo application written in Java 8+ using Spring Boot v2.
 
