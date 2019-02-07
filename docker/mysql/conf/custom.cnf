@@ -2,6 +2,7 @@
 default-authentication-plugin=mysql_native_password
 character_set_server = utf8mb4
 collation_server = utf8mb4_general_ci
+disable_ssl
 lower_case_table_names = 1
 autocommit = 0
 transaction_isolation = REPEATABLE-READ # or READ-COMMITTED
@@ -25,15 +26,13 @@ innodb_autoinc_lock_mode = 1
 innodb_flush_log_at_trx_commit = 1
 innodb_file_per_table
 
-log_output = FILE
+log_output = TABLE
 
 #general_log = 1
-#general_log_file = general.log
 
 log_error = error.log
 
 slow_query_log = 1
-slow_query_log_file = slow.log
-long_query_time = 0.5
+long_query_time = 1
 log_queries_not_using_indexes = 1
 log_slow_admin_statements = 1
