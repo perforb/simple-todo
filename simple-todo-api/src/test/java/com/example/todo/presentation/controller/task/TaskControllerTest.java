@@ -3,7 +3,7 @@ package com.example.todo.presentation.controller.task;
 import com.example.todo.application.task.TaskService;
 import com.example.todo.domain.task.Task;
 import com.example.todo.domain.user.UserRepository;
-import com.example.todo.library.datetime.DateTimeProvider;
+import com.example.todo.lib.time.DateTimeProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;

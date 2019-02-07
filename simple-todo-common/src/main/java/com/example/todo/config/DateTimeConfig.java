@@ -1,6 +1,6 @@
 package com.example.todo.config;
 
-import com.example.todo.library.datetime.DateTimeProvider;
+import com.example.todo.lib.time.DateTimeProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;

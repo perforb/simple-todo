@@ -3,7 +3,7 @@ package com.example.todo.application.task;
 import com.example.todo.domain.NotFoundException;
 import com.example.todo.domain.task.Task;
 import com.example.todo.domain.task.TaskRepository;
-import com.example.todo.library.datetime.DateTimeProvider;
+import com.example.todo.lib.time.DateTimeProvider;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.platform.runner.JUnitPlatform;
