@@ -9,4 +9,4 @@ spring:
   profiles:
     include:
       - logging-dev
-      - datasource-testing
+      - datasource-dev

@@ -1,4 +1,4 @@
-package com.example.todo.library.datetime;
+package com.example.todo.lib.time;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

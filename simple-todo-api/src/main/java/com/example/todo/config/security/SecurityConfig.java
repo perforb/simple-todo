@@ -3,7 +3,7 @@ package com.example.todo.config.security;
 import com.example.todo.application.user.UserService;
 import com.example.todo.domain.UndefinedException;
 import com.example.todo.domain.user.UserRepository;
-import com.example.todo.library.datetime.DateTimeProvider;
+import com.example.todo.lib.time.DateTimeProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;

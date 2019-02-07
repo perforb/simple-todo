@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/test
+    username: someone
+    password: pass
+    platform: mysql
+    sql-script-encoding: UTF-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 0
+      idle-timeout: 30000
+      max-lifetime: 1800000
+      read-only: false
+      auto-commit: false
+      connection-init-sql: "SET SESSION sql_mode='TRADITIONAL,NO_AUTO_VALUE_ON_ZERO,ONLY_FULL_GROUP_BY'"
+      connection-test-query: "select 1"

@@ -8,5 +8,5 @@ server:
 spring:
   profiles:
     include:
-      - logging-dev
-      - datasource-testing
+      - logging-prod
+      - datasource-prod

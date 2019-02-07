@@ -1,4 +1,4 @@
-package com.example.todo.library.datetime;
+package com.example.todo.lib.time;
 
 import java.time.Clock;
 import java.time.Instant;
