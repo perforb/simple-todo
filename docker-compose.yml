@@ -7,8 +7,8 @@ services:
     build:
       context: ./docker/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: pass
-      TZ: "Asia/Tokyo"
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      TZ: "UTC"
     ports:
       - "3306:3306"
     networks:
@@ -40,9 +40,7 @@ services:
       - frontend
       - backend
     environment:
-      PMA_HOST: mysql # or PMA_ARBITRARY: 1
-      # PMA_USER: root
-      # PMA_PASSWORD: pass
+      PMA_HOST: mysql
     restart: always
 
 volumes:
