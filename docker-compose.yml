@@ -15,7 +15,6 @@ services:
       - backend
     volumes:
       - db_data:/var/lib/mysql
-    restart: always
 
   redis:
     container_name: redis
@@ -27,7 +26,6 @@ services:
       - backend
     volumes:
       - redis_data:/data
-    restart: always
 
   myadmin:
     container_name: myadmin
@@ -41,7 +39,6 @@ services:
       - backend
     environment:
       PMA_HOST: mysql
-    restart: always
 
 volumes:
   db_data:
