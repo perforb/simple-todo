@@ -2,7 +2,7 @@
 [![CircleCI](https://circleci.com/gh/perforb/simple-todo/tree/master.svg?style=shield&circle-token=972d4b658137dd49daddae29e77b9255f08f1ccc)](https://circleci.com/gh/perforb/simple-todo/tree/master)
 [![CircleCI](https://circleci.com/gh/perforb/simple-todo/tree/develop.svg?style=shield&circle-token=972d4b658137dd49daddae29e77b9255f08f1ccc)](https://circleci.com/gh/perforb/simple-todo/tree/develop)
 
-This is very simple ToDo application written in Java 8+ using Spring Boot v2.
+This is very simple ToDo application written in Java 11+ using Spring Boot.
 
 ## Motivation
 
@@ -13,33 +13,29 @@ Also, I'd like to make use of my knowledge gained from this product for my busin
 
 Under construction...
 
-## Run Application
+## ToDo
 
-```
-$ ./gradlew build && ./gradlew :simple-todo-api:bootRun
-```
-
-## Run Docker
-
-```
-$ docker-compose -p simple-todo up -d
-```
-
-## Want to do
-
-* [x] CI
+* [x] CI/CD
     - [x] CircleCI
+    - [ ] GitHub Actions
+    - [ ] CodePipeline
+        - [ ] CodeDeploy
+            - [ ] Blue/Green deployment
+* [ ] Infrastructure
+    - [ ] ECS using Fargate
+* [ ] Containerize
+    - [ ] Cloud Native Buildpacks
+* [ ] IaC
+    - [ ] Terraform
 * [x] Testing
     - [x] JUnit 5
-* [x] Multiple Projects
+    - [ ] Testcontainers
+* [x] Build Tool
     - [x] Gradle
+        - [x] Multiple Projects
 * [ ] Clean Architecture
-* [ ] Messaging
-    - [ ] Kafka
-* [ ] Authentication/Authorization
+* [x] Authentication/Authorization
     - [x] JWT
-    - [ ] Authorization Server
-    - [ ] Resource Server
 * [ ] Frontend
-    - [ ] Vue.js
+    - [ ] N(e|u)xt.js
 * [ ] Machine Learning
