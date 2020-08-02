@@ -1,21 +1,21 @@
 apply plugin: "org.springframework.boot"
 
 bootJar {
-    mainClassName = "com.example.todo.Application"
+  mainClassName = "com.example.todo.Application"
 }
 
 dependencies {
-    implementation project(":simple-todo-common")
-    implementation "org.springframework.boot:spring-boot-starter"
-    implementation "org.springframework.boot:spring-boot-starter-security"
-    implementation "org.springframework.boot:spring-boot-starter-actuator"
-    implementation "org.springframework.boot:spring-boot-starter-web"
-    implementation "com.auth0:java-jwt:${javaJwtVersion}"
+  implementation project(":simple-todo-common")
+  implementation "org.springframework.boot:spring-boot-starter"
+  implementation "org.springframework.boot:spring-boot-starter-security"
+  implementation "org.springframework.boot:spring-boot-starter-actuator"
+  implementation "org.springframework.boot:spring-boot-starter-web"
+  implementation "com.auth0:java-jwt:${javaJwtVersion}"
 
-    testImplementation "org.springframework.boot:spring-boot-starter-test"
-    testImplementation "org.springframework.security:spring-security-test"
-    testImplementation "org.junit.platform:junit-platform-runner"
-    testImplementation "org.junit.jupiter:junit-jupiter-api"
-    testImplementation "org.mockito:mockito-junit-jupiter"
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
+  testImplementation "org.springframework.boot:spring-boot-starter-test"
+  testImplementation "org.springframework.security:spring-security-test"
+  testImplementation "org.junit.platform:junit-platform-runner"
+  testImplementation "org.junit.jupiter:junit-jupiter-api"
+  testImplementation "org.mockito:mockito-junit-jupiter"
+  testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
 }

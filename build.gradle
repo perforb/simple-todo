@@ -1,45 +1,45 @@
 buildscript {
-    ext {
-        springBootVersion = "2.1.2.RELEASE"
-        mybatisSpringBootStarterVersion = "1.3.2"
-        javaJwtVersion = "3.4.1"
-    }
+  ext {
+    springBootVersion = "2.1.2.RELEASE"
+    mybatisSpringBootStarterVersion = "1.3.2"
+    javaJwtVersion = "3.4.1"
+  }
 
-    repositories {
-        mavenCentral()
-    }
+  repositories {
+    mavenCentral()
+  }
 
-    dependencies {
-        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
-    }
+  dependencies {
+    classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+  }
 }
 
 allprojects {
-    repositories {
-        mavenCentral()
-    }
+  repositories {
+    mavenCentral()
+  }
 }
 
 subprojects {
-    apply plugin: "java"
-    apply plugin: "java-library"
-    apply plugin: "io.spring.dependency-management"
+  apply plugin: "java"
+  apply plugin: "java-library"
+  apply plugin: "io.spring.dependency-management"
 
-    compileJava.options.encoding = 'UTF-8'
+  compileJava.options.encoding = 'UTF-8'
 
-    sourceCompatibility = 11
-    targetCompatibility = 11
+  sourceCompatibility = 11
+  targetCompatibility = 11
 
-    group = "com.example"
-    version = "0.0.1-SNAPSHOT"
+  group = "com.example"
+  version = "0.0.1-SNAPSHOT"
 
-    dependencies {
-        // import a BOM
-        // https://github.com/spring-projects/spring-boot/blob/master/spring-boot-project/spring-boot-dependencies/pom.xml
-        implementation platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
-    }
+  dependencies {
+    // import a BOM
+    // https://github.com/spring-projects/spring-boot/blob/master/spring-boot-project/spring-boot-dependencies/pom.xml
+    implementation platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
+  }
 
-    test {
-        useJUnitPlatform()
-    }
+  test {
+    useJUnitPlatform()
+  }
 }
