@@ -5,11 +5,11 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
-public class DateTimeProvider {
+public class ApplicationClock {
 
   private final Clock clock;
 
-  public DateTimeProvider(Clock clock) {
+  public ApplicationClock(Clock clock) {
     this.clock = clock;
   }
 

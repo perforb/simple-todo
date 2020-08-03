@@ -3,7 +3,7 @@ package com.example.todo.config.security;
 import com.example.todo.application.user.UserService;
 import com.example.todo.domain.UndefinedException;
 import com.example.todo.domain.user.UserRepository;
-import com.example.todo.lib.time.DateTimeProvider;
+import com.example.todo.lib.time.ApplicationClock;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -31,16 +31,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   private final Environment env;
   private final MappingJackson2HttpMessageConverter converter;
-  private final DateTimeProvider provider;
+  private final ApplicationClock clock;
   private final UserRepository repository;
 
   public SecurityConfig(Environment env,
                         MappingJackson2HttpMessageConverter converter,
-                        DateTimeProvider provider,
+                        ApplicationClock clock,
                         UserRepository repository) {
     this.env = env;
     this.converter = converter;
-    this.provider = provider;
+    this.clock = clock;
     this.repository = repository;
   }
 
@@ -125,7 +125,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
       secretKey,
       expiresIn,
       converter,
-      provider
+      clock
     );
   }
 

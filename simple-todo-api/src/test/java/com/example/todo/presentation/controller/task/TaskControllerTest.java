@@ -3,7 +3,7 @@ package com.example.todo.presentation.controller.task;
 import com.example.todo.application.task.TaskService;
 import com.example.todo.domain.task.Task;
 import com.example.todo.domain.user.UserRepository;
-import com.example.todo.lib.time.DateTimeProvider;
+import com.example.todo.lib.time.ApplicationClock;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
@@ -33,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(value = TaskController.class)
-@MockBean(classes = {DateTimeProvider.class, UserRepository.class})
+@MockBean(classes = {ApplicationClock.class, UserRepository.class})
 class TaskControllerTest {
 
   @Autowired

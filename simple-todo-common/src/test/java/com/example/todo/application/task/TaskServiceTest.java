@@ -3,7 +3,7 @@ package com.example.todo.application.task;
 import com.example.todo.domain.NotFoundException;
 import com.example.todo.domain.task.Task;
 import com.example.todo.domain.task.TaskRepository;
-import com.example.todo.lib.time.DateTimeProvider;
+import com.example.todo.lib.time.ApplicationClock;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.platform.runner.JUnitPlatform;
@@ -30,7 +30,7 @@ import static org.mockito.Mockito.when;
 class TaskServiceTest {
 
   @Mock
-  private DateTimeProvider provider;
+  private ApplicationClock clock;
 
   @Mock
   private TaskRepository taskRepository;
@@ -94,7 +94,7 @@ class TaskServiceTest {
       ZoneId.of("UTC")
     );
 
-    when(provider.instant()).thenReturn(fixedDateTime.toInstant());
+    when(clock.instant()).thenReturn(fixedDateTime.toInstant());
 
     Task newTask = underTest.register(new Task(
       1L,

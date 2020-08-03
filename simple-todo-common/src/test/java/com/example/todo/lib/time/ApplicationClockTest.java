@@ -12,11 +12,11 @@ import java.time.ZonedDateTime;
 
 import static org.junit.Assert.assertEquals;
 
-class DateTimeProviderTest {
+class ApplicationClockTest {
 
   private Clock fixedClock;
 
-  private DateTimeProvider underTest;
+  private ApplicationClock underTest;
 
   @BeforeEach
   void init() {
@@ -31,7 +31,7 @@ class DateTimeProviderTest {
     Clock fixedClock = Clock.fixed(fixedInstant, tokyo);
 
     this.fixedClock = fixedClock;
-    this.underTest = new DateTimeProvider(fixedClock);
+    this.underTest = new ApplicationClock(fixedClock);
   }
 
   @Test

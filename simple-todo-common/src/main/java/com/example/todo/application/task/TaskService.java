@@ -2,7 +2,7 @@ package com.example.todo.application.task;
 
 import com.example.todo.domain.task.Task;
 import com.example.todo.domain.task.TaskRepository;
-import com.example.todo.lib.time.DateTimeProvider;
+import com.example.todo.lib.time.ApplicationClock;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,11 +12,11 @@ import java.util.List;
 @Service
 public class TaskService {
 
-  private final DateTimeProvider provider;
+  private final ApplicationClock clock;
   private final TaskRepository repository;
 
-  public TaskService(DateTimeProvider provider, TaskRepository repository) {
-    this.provider = provider;
+  public TaskService(ApplicationClock clock, TaskRepository repository) {
+    this.clock = clock;
     this.repository = repository;
   }
 
@@ -30,7 +30,7 @@ public class TaskService {
 
   @Transactional
   public Task register(Task task) {
-    Instant instant = provider.instant();
+    Instant instant = clock.instant();
     task.setCreatedAt(instant);
     repository.register(task);
     return task;

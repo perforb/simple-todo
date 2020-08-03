@@ -3,7 +3,7 @@ package com.example.todo.config.security;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.example.todo.domain.user.UserDetails;
-import com.example.todo.lib.time.DateTimeProvider;
+import com.example.todo.lib.time.ApplicationClock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpOutputMessage;
@@ -27,18 +27,18 @@ public class DefaultAuthenticationSuccessHandler implements AuthenticationSucces
   private final Algorithm algorithm;
   private final int expiresIn;
   private final MappingJackson2HttpMessageConverter converter;
-  private final DateTimeProvider provider;
+  private final ApplicationClock clock;
 
   public DefaultAuthenticationSuccessHandler(
     String secretKey,
     int expiresIn,
     MappingJackson2HttpMessageConverter converter,
-    DateTimeProvider provider
+    ApplicationClock clock
   ) {
     this.algorithm = Algorithm.HMAC512(secretKey);
     this.expiresIn = expiresIn;
     this.converter = converter;
-    this.provider = provider;
+    this.clock = clock;
   }
 
   @Override
@@ -70,7 +70,7 @@ public class DefaultAuthenticationSuccessHandler implements AuthenticationSucces
   private String generateToken(Authentication auth) {
     long expirationTime = TimeUnit.MINUTES.toMillis(expiresIn);
     UserDetails userDetails = (UserDetails) auth.getPrincipal();
-    Date issuedAt = Date.from(provider.instant());
+    Date issuedAt = Date.from(clock.instant());
     Date notBefore = new Date(issuedAt.getTime());
     Date expiresAt = new Date(issuedAt.getTime() + expirationTime);
 
