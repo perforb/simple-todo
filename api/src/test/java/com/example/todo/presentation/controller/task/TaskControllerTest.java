@@ -62,11 +62,11 @@ class TaskControllerTest {
     when(service.findById(anyLong())).thenReturn(task);
 
     RequestBuilder builder = MockMvcRequestBuilders.get("/tasks/{id}", 1L)
-      .accept(MediaType.APPLICATION_JSON_UTF8);
+      .accept(MediaType.APPLICATION_JSON);
 
     MvcResult result = mockMvc.perform(builder)
       .andExpect(status().isOk())
-      .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+      .andExpect(content().contentType(MediaType.APPLICATION_JSON))
       .andExpect(jsonPath("$").isNotEmpty())
       .andExpect(jsonPath("$.id").value(task.getId()))
       .andExpect(jsonPath("$.title").value(task.getTitle()))
