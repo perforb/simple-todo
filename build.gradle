@@ -10,6 +10,12 @@ ext {
   gradleGitPropertiesVersion = "2.2.3"
 }
 
+allprojects {
+  repositories {
+    mavenCentral()
+  }
+}
+
 subprojects {
   apply plugin: "java"
   apply plugin: "java-library"
