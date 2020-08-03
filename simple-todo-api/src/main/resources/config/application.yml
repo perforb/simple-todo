@@ -11,7 +11,8 @@ spring:
       write-dates-as-timestamps: true
 
 logging:
-  path: ${APP_LOG_DIR:/var/log/app}
+  file:
+    path: ${APP_LOG_DIR:/var/log/app}
 
 app:
   time-zone: ${APP_TIME_ZONE:Asia/Tokyo}

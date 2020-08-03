@@ -110,6 +110,6 @@ public class AuthenticationFilter extends GenericFilterBean {
     );
 
     HttpOutputMessage message = new ServletServerHttpResponse(res);
-    converter.write(response, MediaType.APPLICATION_JSON_UTF8, message);
+    converter.write(response, MediaType.APPLICATION_JSON, message);
   }
 }
