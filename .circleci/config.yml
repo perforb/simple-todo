@@ -29,11 +29,11 @@ commands:
     steps:
       - restore_cache:
           keys:
-            - v2-dependencies-{{ checksum "build.gradle" }}-{{ checksum "simple-todo-common/build.gradle" }}-{{ checksum "simple-todo-api/build.gradle" }}
+            - v2-dependencies-{{ checksum "build.gradle" }}-{{ checksum "common/build.gradle" }}-{{ checksum "api/build.gradle" }}
   save_dependencies:
     steps:
       - save_cache:
-          key: v2-dependencies-{{ checksum "build.gradle" }}-{{ checksum "simple-todo-common/build.gradle" }}-{{ checksum "simple-todo-api/build.gradle" }}
+          key: v2-dependencies-{{ checksum "build.gradle" }}-{{ checksum "common/build.gradle" }}-{{ checksum "api/build.gradle" }}
           paths:
             - ~/.gradle
 
@@ -47,8 +47,8 @@ jobs:
           name: Download dependencies
           command: |
             ./gradlew dependencies
-            ./gradlew :simple-todo-common:dependencies
-            ./gradlew :simple-todo-api:dependencies
+            ./gradlew :common:dependencies
+            ./gradlew :api:dependencies
       - save_dependencies
   test_common:
     executor: with_db
@@ -62,7 +62,7 @@ jobs:
       - run:
           name: Test common module
           command: |
-            ./gradlew :simple-todo-common:test
+            ./gradlew :common:test
   test_api:
     executor: with_db
     steps:
@@ -75,7 +75,7 @@ jobs:
       - run:
           name: Test api module
           command: |
-            ./gradlew :simple-todo-api:test
+            ./gradlew :api:test
   build:
     executor: default
     steps:
@@ -87,7 +87,7 @@ jobs:
             ./gradlew clean
             ./gradlew build
       - store_artifacts:
-          path: simple-todo-api/build/libs/simple-todo-api-0.0.1-SNAPSHOT.jar
+          path: api/build/libs/api-0.0.1-SNAPSHOT.jar
   deploy:
     executor: default
     parameters:
