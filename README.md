@@ -30,6 +30,7 @@ Under construction...
 * [x] Testing
     - [x] JUnit 5
     - [ ] Testcontainers
+* [ ] Distributed Tracing
 * [x] Build Tool
     - [x] Gradle
         - [x] Multiple Projects
